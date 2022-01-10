@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stacked/stacked.dart';
 import 'package:wave_app/utils/margins.dart';
 import 'package:wave_app/vm/waves_vm.dart';
 import 'package:wave_app/widgets/customText.dart';
@@ -14,8 +15,12 @@ class Wave extends StatefulWidget {
 class _WaveState extends State<Wave> {
   @override
   Widget build(BuildContext context) {
-    final waveModel = Provider.of<WaveViewModel>(context);
-    
+    // final waveModel = Provider.of<WaveViewModel>(context);
+
+    return ViewModelBuilder<WaveViewModel>.reactive(
+      viewModelBuilder: () => WaveViewModel(),
+      onModelReady: (waveModel) => waveModel.getWaves(),
+      builder: (context, waveModel, child) {
         return Scaffold(
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,5 +56,7 @@ class _WaveState extends State<Wave> {
             ],
           ),
         );
+      },
+    );
   }
 }
