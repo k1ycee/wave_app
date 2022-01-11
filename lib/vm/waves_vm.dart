@@ -14,6 +14,19 @@ class WaveViewModel extends ChangeNotifier{
     final BigInt result =  await contract.getWaves();
     _waves = result.toInt();
     print(_waves);
+    getAllWaves();
+    notifyListeners();
+  }
+
+  Future<void> getAllWaves()async{
+    final result = await contract.getAllWaves();
+    print(result);
+    notifyListeners();
+  }
+
+
+  Future<void> sendWave(String message)async{
+    await contract.wave(message); 
     notifyListeners();
   }
 }

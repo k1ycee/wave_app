@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
+import 'package:wave_app/utils/buttonStyle.dart';
 import 'package:wave_app/utils/margins.dart';
 import 'package:wave_app/vm/waves_vm.dart';
+import 'package:wave_app/widgets/button.dart';
 import 'package:wave_app/widgets/customText.dart';
+import 'package:wave_app/widgets/textField.dart';
 
 class Wave extends StatefulWidget {
   const Wave({Key? key}) : super(key: key);
@@ -12,16 +14,17 @@ class Wave extends StatefulWidget {
   _WaveState createState() => _WaveState();
 }
 
+TextEditingController messageController = TextEditingController();
+
 class _WaveState extends State<Wave> {
   @override
   Widget build(BuildContext context) {
-    // final waveModel = Provider.of<WaveViewModel>(context);
-
     return ViewModelBuilder<WaveViewModel>.reactive(
       viewModelBuilder: () => WaveViewModel(),
       onModelReady: (waveModel) => waveModel.getWaves(),
       builder: (context, waveModel, child) {
         return Scaffold(
+          resizeToAvoidBottomInset: true,
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -53,6 +56,25 @@ class _WaveState extends State<Wave> {
                   textAlign: TextAlign.center,
                 ),
               ),
+              verticalSpaceMedium,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Column(
+                  children: [
+                    CustomTextField(
+                      title: "Send me a wave...",
+                      controller: messageController,
+                    ),
+                    verticalSpaceMedium,
+                    CustomButton(
+                      buttonText: "Send Wave",
+                      buttonStyle: buttonStyle(color: Colors.grey),
+                      onPressed: () =>
+                          waveModel.sendWave(messageController.text),
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         );

@@ -38,4 +38,29 @@ class ContractLinkUp {
     List<dynamic> result = await query("getTotalWaves", []);
     return result[0];
   }
+
+  Future getAllWaves() async {
+    List<dynamic> result = await query("getAllWaves", []);
+    print(result);
+    return result;
+  }
+
+  Future<String> send(String functionName, List<dynamic> args) async {
+    EthPrivateKey credential =
+        EthPrivateKey.fromHex(dotenv.env["ETH_PRIVATEKEY"]!);
+
+    DeployedContract contract = await loadContract();
+    final ethFunction = contract.function(functionName);
+    final result = ethClient.sendTransaction(
+        credential,
+        Transaction.callContract(
+            contract: contract, function: ethFunction, parameters: args),
+        fetchChainIdFromNetworkId: true);
+    return result;
+  }
+
+  Future wave(String message) async {
+    String result = await send("wave", [message]);
+    return result;
+  }
 }
