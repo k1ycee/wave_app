@@ -38,7 +38,10 @@ class WaveViewModel extends ChangeNotifier {
   }
 
   Future<void> sendWave(String message) async {
+    setBusy(true);
     await contract.wave(message);
+    getAllWaves();
+    setBusy(false);
     notifyListeners();
   }
 }
