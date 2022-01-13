@@ -8,11 +8,15 @@ class CustomText extends StatelessWidget {
   final FontStyle fontStyle;
   final TextAlign textAlign;
   final TextOverflow overflow;
+  final Color color;
   const CustomText(this.text,
       {Key? key,
       this.fontSize = 27,
       this.fontWeight = FontWeight.normal,
-      this.fontStyle = FontStyle.normal, this.textAlign = TextAlign.start, this.overflow = TextOverflow.fade})
+      this.fontStyle = FontStyle.normal,
+      this.textAlign = TextAlign.start,
+      this.overflow = TextOverflow.fade,
+      this.color = Colors.black})
       : super(key: key);
 
   @override
@@ -22,11 +26,10 @@ class CustomText extends StatelessWidget {
       textAlign: textAlign,
       overflow: overflow,
       style: GoogleFonts.poppins(
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        fontStyle: fontStyle,
-        color: Colors.black,
-      ),
+          fontSize: fontSize,
+          fontWeight: fontWeight,
+          fontStyle: fontStyle,
+          color: color),
     );
   }
 }

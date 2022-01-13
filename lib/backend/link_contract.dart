@@ -39,9 +39,8 @@ class ContractLinkUp {
     return result[0];
   }
 
-  Future getAllWaves() async {
+  Future<List<dynamic>> getAllWaves() async {
     List<dynamic> result = await query("getAllWaves", []);
-    print(result);
     return result;
   }
 
@@ -52,10 +51,14 @@ class ContractLinkUp {
     DeployedContract contract = await loadContract();
     final ethFunction = contract.function(functionName);
     final result = ethClient.sendTransaction(
-        credential,
-        Transaction.callContract(
-            contract: contract, function: ethFunction, parameters: args),
-        fetchChainIdFromNetworkId: true);
+      credential,
+      Transaction.callContract(
+        contract: contract,
+        function: ethFunction,
+        parameters: args,
+      ),
+      chainId: 4,
+    );
     return result;
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:wave_app/utils/buttonStyle.dart';
 import 'package:wave_app/utils/margins.dart';
+import 'package:wave_app/views/all_wavers.dart';
 import 'package:wave_app/vm/waves_vm.dart';
 import 'package:wave_app/widgets/button.dart';
 import 'package:wave_app/widgets/customText.dart';
@@ -69,8 +70,29 @@ class _WaveState extends State<Wave> {
                     CustomButton(
                       buttonText: "Send Wave",
                       buttonStyle: buttonStyle(color: Colors.grey),
-                      onPressed: () =>
-                          waveModel.sendWave(messageController.text),
+                      onPressed: () {
+                        waveModel.sendWave(messageController.text);
+                        messageController.clear();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AllWavers(),
+                          ),
+                        );
+                      },
+                    ),
+                    verticalSpaceMedium,
+                    CustomButton(
+                      buttonText: "See Wavers",
+                      buttonStyle: buttonStyle(color: Colors.green),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AllWavers(),
+                          ),
+                        );
+                      },
                     )
                   ],
                 ),
