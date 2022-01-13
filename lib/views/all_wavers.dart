@@ -18,6 +18,41 @@ class _AllWaversState extends State<AllWavers> {
       viewModelBuilder: () => WaveViewModel(),
       onModelReady: (waveModel) => waveModel.getAllWaves(),
       builder: (context, waveModel, child) {
+        if (waveModel.busy) {
+          return Scaffold(
+            appBar: AppBar(
+              title: CustomText(
+                "Hall of Wavers",
+                fontSize: 20,
+                color: Colors.white,
+              ),
+              elevation: 0,
+              leading: Container(),
+              centerTitle: true,
+            ),
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        } else if (waveModel.allWaves.length == 0) {
+          return Scaffold(
+            appBar: AppBar(
+              title: CustomText(
+                "Hall of Wavers",
+                fontSize: 20,
+                color: Colors.white,
+              ),
+              elevation: 0,
+              leading: Container(),
+              centerTitle: true,
+            ),
+            body: Center(
+              child: CustomText(
+                "No one has waved at you yet 😢",
+              ),
+            ),
+          );
+        }
         return Scaffold(
           appBar: AppBar(
             title: CustomText(

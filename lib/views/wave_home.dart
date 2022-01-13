@@ -24,6 +24,13 @@ class _WaveState extends State<Wave> {
       viewModelBuilder: () => WaveViewModel(),
       onModelReady: (waveModel) => waveModel.getWaves(),
       builder: (context, waveModel, child) {
+        if (waveModel.busy) {
+          return Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
         return Scaffold(
           resizeToAvoidBottomInset: true,
           body: Column(
@@ -96,7 +103,7 @@ class _WaveState extends State<Wave> {
                     )
                   ],
                 ),
-              )
+              ),
             ],
           ),
         );

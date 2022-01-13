@@ -56,6 +56,7 @@ class ContractLinkUp {
         contract: contract,
         function: ethFunction,
         parameters: args,
+        maxGas: 300000
       ),
       chainId: 4,
     );
